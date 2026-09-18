@@ -67,6 +67,14 @@ body {
   padding: var(--page-margin);
 }
 
+/* Display type. Size and leading stay per-use; family, weight and the tight
+   tracking the design depends on live here so they can't drift apart. */
+.headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+
 .label {
   font-family: var(--font-mono);
   font-size: clamp(0.625rem, 0.72vw, 0.8125rem);

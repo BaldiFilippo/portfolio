@@ -1,13 +1,16 @@
+import Image from "next/image";
+
+import { ContactList } from "@/components/contact-list";
 import { Panel } from "@/components/panel";
 import {
   BIO,
-  CONTACTS,
   EDUCATION,
   EXPERIENCE,
   INTERESTS,
   LANGUAGES,
   PERSONAL_SKILLS,
   PROFESSIONAL_SKILLS,
+  PORTRAITS,
   PROJECTS,
   type Entry,
 } from "@/lib/cv";
@@ -53,27 +56,35 @@ export function CvPanel() {
       <div className="col-span-full row-start-1 row-end-4 grid grid-cols-subgrid gap-y-16 lg:gap-y-0">
         {/* Left: contacts, name, portraits, bio */}
         <div className="col-span-full flex flex-col lg:col-span-4 lg:col-start-1 lg:pt-[4vh]">
-          <ul className="label flex flex-col text-accent">
-            {CONTACTS.map((contact) => (
-              <li key={contact}>{contact}</li>
-            ))}
-          </ul>
+          <ContactList />
 
           {/* Lifted above the portraits so the name and its tag sit on top of the
               photographs rather than stacking clear of them. */}
-          <div className="relative z-10 mt-10 lg:mt-[6vh]">
-            <h2 className="font-display text-[clamp(2.5rem,4.6vw,6rem)] leading-[0.85] font-bold tracking-[-0.035em]">
+          <div className="relative z-10 mt-10 lg:mt-[3vh]">
+            <h2 className="headline text-[clamp(2.5rem,4.6vw,6rem)] leading-[0.85]">
               <span className="block">filippo</span>
               <span className="block">baldi</span>
             </h2>
-            <p className="label mt-2">UX/UI Designer</p>
           </div>
 
-          {/* Portrait slots — real photography replaces these, at which point they
-              become next/image with explicit sizes. */}
-          <div className="-mt-12 grid grid-cols-2 gap-2 lg:-mt-16" aria-hidden>
-            {[0, 1, 2, 3].map((slot) => (
-              <div key={slot} className="aspect-[8/5] bg-accent/20" />
+          {/* Duotone: the cell is painted in the accent, the photo is desaturated
+              and screened over it, so blacks land on the accent and whites stay
+              white. `isolate` keeps the blend inside the cell instead of reaching
+              the paper behind it. */}
+          <div className="-mt-3 grid grid-cols-2 gap-2 lg:-mt-4">
+            {PORTRAITS.map((portrait) => (
+              <div
+                key={portrait.src}
+                className="relative isolate aspect-[4/3] overflow-hidden bg-accent"
+              >
+                <Image
+                  src={portrait.src}
+                  alt={portrait.alt}
+                  fill
+                  sizes="(min-width: 1024px) 16vw, 45vw"
+                  className="object-cover grayscale mix-blend-screen"
+                />
+              </div>
             ))}
           </div>
 

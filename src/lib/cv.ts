@@ -5,14 +5,23 @@ export type Entry = {
   detail?: string;
 };
 
-export const CONTACTS = [
-  "baldi.filippo@icloud.com",
-  "+39 320 794 1193",
-  "@filippobaldi",
-  "Brescia, Italy",
-  "linkedin.com/in/filippobaldi",
-  "github.com/BaldiFilippo",
-  "projects/visuals",
+export type Contact = {
+  label: string;
+  /** Present when the line is somewhere to go, absent when it is just a fact. */
+  href?: string;
+};
+
+export const CONTACTS: Contact[] = [
+  { label: "baldi.filippo@icloud.com", href: "mailto:baldi.filippo@icloud.com" },
+  { label: "+39 320 794 1193", href: "tel:+393207941193" },
+  { label: "@filippobaldi" },
+  { label: "Brescia, Italy" },
+  {
+    label: "linkedin.com/in/filippobaldi",
+    href: "https://linkedin.com/in/filippobaldi",
+  },
+  { label: "github.com/BaldiFilippo", href: "https://github.com/BaldiFilippo" },
+  { label: "projects/visuals" },
 ];
 
 export const EDUCATION: Entry[] = [
@@ -123,3 +132,17 @@ export const INTERESTS = [
 
 export const BIO =
   "I design end to end — user interviews, usability testing, high-fidelity prototypes — around health and well-being, smart objects and human–AI interaction. A year spent as a software developer means I also build the interfaces I draw, which keeps the handoff honest. Every project shifts how I think and what I reach for next.";
+
+export type Portrait = {
+  src: string;
+  alt: string;
+};
+
+// Original framing, uncropped. The 4:3 cells are close to these photos' own
+// proportions, so covering them costs only a few percent at the edges.
+export const PORTRAITS: Portrait[] = [
+  { src: "/cv/baby.jpg", alt: "Filippo as a toddler, waving at the camera" },
+  { src: "/cv/sea.jpg", alt: "Filippo in the sea" },
+  { src: "/cv/park.jpg", alt: "Filippo in a park in Milan" },
+  { src: "/cv/child.jpg", alt: "Filippo as a child, pulling a face" },
+];
