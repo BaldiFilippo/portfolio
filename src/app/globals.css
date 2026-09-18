@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: #e8e7e3;
+  --color-ink: #141414;
+  --color-accent: #2d28c8;
+
+  --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+
+  /* The one rhythm unit: a heading to the list it introduces, one entry to the
+     next, a block to the block beneath it. Available as `mt-rhythm`, `gap-rhythm`
+     and friends.
+     Not named `block`: that collides with Tailwind's display utilities, because
+     `inline-block` then also parses as the logical `inline-size` utility and
+     silently pins every `inline-block` element to this width. */
+  --spacing-rhythm: 1.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light;
+
+  --page-margin: clamp(1.25rem, 2.6vw, 3.25rem);
+  --grid-gutter: clamp(0.75rem, 1.4vw, 1.5rem);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-mono);
+}
+
+/* The panels travel sideways, so a vertical rubber-band at either end breaks the
+   illusion of one sheet — it peels the page away and shows the canvas behind it.
+   Left alone on mobile, where the layout really is a vertical stack and the
+   bounce is the platform behaving normally. */
+@media (min-width: 1024px) {
+  html {
+    overscroll-behavior-y: none;
+  }
+}
+
+/* Paper grain. Fixed above everything so the texture never scrolls with the
+   panels, which is what makes it read as the sheet rather than as content. */
+.grain {
+  position: fixed;
+  inset: 0;
+  /* Sits between the paper and the content: the texture reads on the sheet, but
+     it never chews into the soft edges of blurred type, where an overlay blend
+     bites hardest because mid-greys are exactly where it has the most range. */
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+  mix-blend-mode: overlay;
+  background-size: 200px 200px;
+  /* feColorMatrix flattens RGB to grey and pins alpha to 1 — feTurbulence
+     randomises alpha too, which otherwise washes the texture out entirely. The
+     linear transfer then stretches the noise, which clusters tightly around 0.5,
+     out to the full range: overlay on a near-white backdrop compresses whatever
+     contrast it is given by roughly 5x. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='3' intercept='-1'/%3E%3CfeFuncG type='linear' slope='3' intercept='-1'/%3E%3CfeFuncB type='linear' slope='3' intercept='-1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto 1fr auto;
+  column-gap: var(--grid-gutter);
+  padding: var(--page-margin);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: clamp(0.625rem, 0.72vw, 0.8125rem);
+  line-height: 1.5;
+  letter-spacing: 0.06em;
 }
