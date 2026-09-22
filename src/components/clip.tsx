@@ -25,15 +25,19 @@ function usePrefersStillness() {
  * sound, nothing to operate. It carries an argument a still cannot — that the
  * interaction costs no time — so it has to start on its own.
  *
- * Four things keep that from costing the scroll. A clip holds still while the
- * sheet is moving and resumes once it settles: nobody watches a four-second
- * loop while travelling past it, and decoding two of them under a transform
- * that runs every frame is exactly what makes a sideways scroll stutter.
- * Nothing is ever drawn on top of a playing clip — no blend, no filter —
- * because either one takes the video off the compositor's overlay path and
- * makes every frame pay for it. The file is fetched a screen early rather than
- * on arrival, so a few megabytes never land in the middle of the motion. And
- * where motion is unwelcome it never plays at all: the poster stays and the
+ * It runs without interruption, including while the sheet is travelling. An
+ * earlier version stopped it during a scroll, on the theory that two decodes
+ * under a transform were what made the page stutter; the stutter turned out to
+ * be a laptop throttling itself at ten percent charge, and a loop that freezes
+ * whenever you move reads as a bug.
+ *
+ * Two things keep it cheap anyway. It plays only while it is on screen — a loop
+ * running off to the side of a sixteen-panel sheet is pure waste — and the file
+ * is fetched a screen early rather than on arrival, so a few megabytes never
+ * land in the middle of the motion. No blend is ever laid over a playing clip
+ * either, since that takes the video off the compositor's overlay path.
+ *
+ * Where motion is unwelcome it never plays at all: the poster stays and the
  * controls appear, so it can still be watched deliberately.
  */
 export function ClipFrame({ clip }: { clip: Clip }) {
@@ -56,36 +60,19 @@ export function ClipFrame({ clip }: { clip: Clip }) {
       { rootMargin: "0px 100%" },
     );
 
-    let onPanel = false;
-    let settle: number | undefined;
-
-    const resume = () => {
-      if (onPanel && el.paused) void el.play().catch(() => {});
-    };
-
     const playing = new IntersectionObserver(
       ([entry]) => {
-        onPanel = entry.isIntersecting;
-        if (onPanel) resume();
+        if (entry.isIntersecting) void el.play().catch(() => {});
         else el.pause();
       },
       { threshold: 0.25 },
     );
 
-    const onScroll = () => {
-      if (!el.paused) el.pause();
-      window.clearTimeout(settle);
-      settle = window.setTimeout(resume, 140);
-    };
-
     ahead.observe(el);
     playing.observe(el);
-    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       ahead.disconnect();
       playing.disconnect();
-      window.removeEventListener("scroll", onScroll);
-      window.clearTimeout(settle);
     };
   }, [still]);
 
