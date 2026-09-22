@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme inline {
+@theme {
   --color-paper: #e8e7e3;
   --color-ink: #141414;
   /* Secondary text is the same ink as everything else; hierarchy comes from
@@ -59,6 +59,30 @@
 :root {
   color-scheme: light;
 
+  /* The sheet turns over once, on the empty screen after the projects: paper
+     and ink trade places, and the photographs and the sign-off are read on the
+     dark side. One number drives it, so nothing on the page has to know which
+     side it is on — every colour token is mixed from these two ends.
+
+     This is why the theme above is `@theme` and not `@theme inline`: `inline`
+     pastes the literal values into each utility, and a value pasted into a
+     utility cannot be changed while the page is running. */
+  --sheet-light: #e8e7e3;
+  --sheet-dark: #141414;
+  --sheet-tint: 0;
+
+  --color-paper: color-mix(
+    in oklab,
+    var(--sheet-light),
+    var(--sheet-dark) calc(var(--sheet-tint) * 100%)
+  );
+  --color-ink: color-mix(
+    in oklab,
+    var(--sheet-dark),
+    var(--sheet-light) calc(var(--sheet-tint) * 100%)
+  );
+  --color-accent: var(--color-ink);
+
   --page-margin: clamp(1.25rem, 2.6vw, 3.25rem);
   --grid-gutter: clamp(0.75rem, 1.4vw, 1.5rem);
 
@@ -111,6 +135,26 @@ body {
     width: calc(var(--panel-span, 1) * 100vw);
     height: 100vh;
     min-height: 0;
+  }
+
+  /* A section that reads downward. It takes one screen of the track like any
+     other panel; its own panels are stacked inside and clipped, and the scroll
+     raises the stack instead of moving the sheet along. */
+  .panel-column {
+    flex: none;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .panel-column-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .panel-column [data-panel] {
+    width: 100%;
   }
 }
 

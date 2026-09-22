@@ -1,4 +1,6 @@
-import { HorizontalScroll } from "@/components/horizontal-scroll";
+import { Panel } from "@/components/panel";
+import { PanelColumn } from "@/components/panel-column";
+import { SheetScroll } from "@/components/sheet-scroll";
 import { BlogPanel } from "@/components/panels/blog-panel";
 import { ClosingPanel } from "@/components/panels/closing-panel";
 import { CvPanel } from "@/components/panels/cv-panel";
@@ -11,16 +13,24 @@ import { ProjectsPanel } from "@/components/panels/projects-panel";
 export default function Home() {
   return (
     <main className="relative z-10">
-      <HorizontalScroll>
+      <SheetScroll>
         <HeroPanel />
         <CvPanel />
         <BlogPanel />
-        <ProjectsPanel />
-        <ProjectPages />
+        {/* Read downward: the opening and the projects under it are one
+            section, not four rooms along the corridor. */}
+        <PanelColumn>
+          <ProjectsPanel />
+          <ProjectPages />
+        </PanelColumn>
+        {/* A screen of nothing. It is not a pause for its own sake: turning the
+            sheet from paper to ink takes a full screen of travel, and doing it
+            under content would drag the photographs through a muddy middle. */}
+        <Panel turn />
         <PhotographyPanel />
         <PhotographyStrip />
         <ClosingPanel />
-      </HorizontalScroll>
+      </SheetScroll>
     </main>
   );
 }
