@@ -15,6 +15,9 @@ export default function Home() {
     <main className="relative z-10">
       <SheetScroll>
         <HeroPanel />
+        {/* Half a screen of paper, so the cover is not read as the CV's first
+            column and the sheet has somewhere to breathe between them. */}
+        <Panel span={0.5} gap />
         <CvPanel />
         <BlogPanel />
         {/* Read downward: the opening and the projects under it are one

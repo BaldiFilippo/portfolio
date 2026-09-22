@@ -199,6 +199,14 @@ body {
   }
 }
 
+/* A gap only exists where the sheet runs sideways. Stacked, it would be a
+   blank screen between two sections rather than a breath between them. */
+@media (max-width: 1023px) {
+  [data-gap] {
+    display: none;
+  }
+}
+
 /* Phones: a panel is still at least a screen tall, but it may run past one when
    its content stacks — so it needs real breathing room top and bottom rather
    than the tight gutter the desktop canvas uses, or consecutive sections read as
