@@ -23,12 +23,6 @@ export default function Home() {
         {/* Read downward: the opening and the projects under it are one
             section, not four rooms along the corridor. */}
         <PanelColumn>
-          {/* The landing. You arrive here sideways, on an empty sheet, and the
-              opening of the projects rises from under it as you go down — so
-              the change of direction is something you do rather than something
-              that happens to you. Dropped below `lg`, where there is no arrival
-              to stage and it would just be a blank screen. */}
-          <Panel gap />
           <ProjectsPanel />
           <ProjectPages />
           {/* A screen of nothing at the foot of the column. Turning the sheet
