@@ -16,8 +16,8 @@ export function ProjectsPanel() {
       </ul>
 
       <div className="col-span-full row-start-2 flex items-end justify-end">
-        <div className="mb-[10vh] max-w-[46ch]">
-          <h2 className="headline text-[clamp(2.5rem,5.5vw,7rem)] leading-[0.85]">
+        <div className="mb-far max-w-reading">
+          <h2 className="headline text-project">
             <span className="block">selected</span>
             <span className="block">projects</span>
           </h2>

@@ -10,7 +10,7 @@ export function ContactList({ className = "" }: { className?: string }) {
               href={contact.href}
               target={contact.href.startsWith("http") ? "_blank" : undefined}
               rel="noopener noreferrer"
-              className="underline-offset-4 hover:underline focus-visible:underline"
+              className="tap-safe underline-offset-4 hover:underline focus-visible:underline"
             >
               {contact.label}
             </a>

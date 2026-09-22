@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Space_Mono } from "next/font/google";
 import "./globals.css";
+import { PerfProbe } from "@/components/perf-probe";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="text-ink">
         {children}
         <div className="grain" aria-hidden />
+        {process.env.NODE_ENV === "development" ? <PerfProbe /> : null}
       </body>
     </html>
   );

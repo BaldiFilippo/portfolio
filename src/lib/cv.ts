@@ -142,7 +142,67 @@ export type Portrait = {
 // proportions, so covering them costs only a few percent at the edges.
 export const PORTRAITS: Portrait[] = [
   { src: "/cv/baby.jpg", alt: "Filippo as a toddler, waving at the camera" },
-  { src: "/cv/sea.jpg", alt: "Filippo in the sea" },
-  { src: "/cv/park.jpg", alt: "Filippo in a park in Milan" },
   { src: "/cv/child.jpg", alt: "Filippo as a child, pulling a face" },
+  { src: "/cv/park.jpg", alt: "Filippo in a park in Milan" },
+  { src: "/cv/sea.jpg", alt: "Filippo in the sea" },
+];
+
+export type Shot = {
+  /** Absent on a slot still waiting for its photograph. */
+  src?: string;
+  alt: string;
+  location: string;
+  orientation: "landscape" | "portrait";
+};
+
+// Ordered to alternate the two formats rather than to follow the trip.
+export const SHOTS: Shot[] = [
+  {
+    src: "/shots/parga.jpg",
+    alt: "Rocks and pine trees above still water at dusk",
+    location: "Parga, Greece",
+    orientation: "landscape",
+  },
+  {
+    src: "/shots/milan-doorway.jpg",
+    alt: "A doorway framing an avenue of clipped trees",
+    location: "Milan, Italy",
+    orientation: "portrait",
+  },
+  {
+    src: "/shots/tokyo.jpg",
+    alt: "Two figures crossing a lit street, caught in a long exposure",
+    location: "Tokyo, Japan",
+    orientation: "landscape",
+  },
+  {
+    src: "/shots/sahara.jpg",
+    alt: "A camel standing in open desert under scattered cloud",
+    location: "Sahara Desert, Morocco",
+    orientation: "portrait",
+  },
+  {
+    src: "/shots/milan-metro.jpg",
+    alt: "A man on a platform watching a train pull through",
+    location: "Milan, Italy",
+    orientation: "landscape",
+  },
+  {
+    src: "/shots/tokyo-koi.jpg",
+    alt: "Koi crowding the surface of a dark pond",
+    location: "Tokyo, Japan",
+    orientation: "portrait",
+  },
+  {
+    src: "/shots/statue.jpg",
+    alt: "A weathered bronze figure standing among rose bushes",
+    location: "Milan, Italy",
+    orientation: "landscape",
+  },
+  {
+    src: "/shots/beijing.jpg",
+    alt: "A shopkeeper resting at the counter of a narrow shop",
+    location: "Beijing, China",
+    orientation: "portrait",
+  },
 ];

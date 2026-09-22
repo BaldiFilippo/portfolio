@@ -18,14 +18,14 @@ export function BlogPanel() {
     <Panel>
       <div className="col-span-full row-start-2 flex flex-col justify-center">
         <div className="text-center">
-          <h2 className="headline text-[clamp(3rem,6.5vw,9rem)] leading-none">
+          <h2 className="headline text-title">
             pensieri.
           </h2>
           <a
             href={BLOG_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="label mt-2 inline-block underline-offset-4 hover:underline focus-visible:underline"
+            className="label tap-safe mt-hairline underline-offset-4 hover:underline focus-visible:underline"
           >
             www.bblog.blog
           </a>
@@ -33,18 +33,17 @@ export function BlogPanel() {
 
         {/* Wide enough that each line sits on one line, which is what gives the
             block its centred ragged shape. */}
-        <div className="label mx-auto mt-[8vh] flex w-full max-w-[1360px] flex-col items-center text-center">
+        <div className="label mx-auto mt-far flex w-full max-w-lines flex-col items-center text-center">
           {LINES.map((line) => (
             <p key={line}>{line}</p>
           ))}
         </div>
       </div>
 
-      <div className="label col-span-full row-start-3 flex items-end justify-between gap-8">
-        <span className="headline text-[clamp(1rem,1.4vw,1.5rem)]">
+      <div className="label col-span-full row-start-3 flex items-end justify-between gap-rhythm self-end">
+        <span className="headline text-mark">
           personal blog
         </span>
-        <span className="uppercase">bblog, writing as a thinking tool</span>
       </div>
     </Panel>
   );

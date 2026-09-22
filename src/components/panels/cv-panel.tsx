@@ -53,36 +53,29 @@ function SkillList({
 export function CvPanel() {
   return (
     <Panel>
-      <div className="col-span-full row-start-1 row-end-4 grid grid-cols-subgrid gap-y-16 lg:gap-y-0">
+      <div className="col-span-full row-start-1 row-end-4 grid grid-cols-subgrid gap-y-stack lg:gap-y-0">
         {/* Left: contacts, name, portraits, bio */}
-        <div className="col-span-full flex flex-col lg:col-span-4 lg:col-start-1 lg:pt-[4vh]">
+        <div className="col-span-full flex flex-col lg:col-span-4 lg:col-start-1 lg:pt-near">
           <ContactList />
 
-          {/* Lifted above the portraits so the name and its tag sit on top of the
-              photographs rather than stacking clear of them. */}
-          <div className="relative z-10 mt-10 lg:mt-[3vh]">
-            <h2 className="headline text-[clamp(2.5rem,4.6vw,6rem)] leading-[0.85]">
-              <span className="block">filippo</span>
-              <span className="block">baldi</span>
+          <div className="relative z-10 mt-stack lg:mt-near">
+            <h2 className="headline text-title">
+              Filippo
             </h2>
           </div>
 
-          {/* Duotone: the cell is painted in the accent, the photo is desaturated
-              and screened over it, so blacks land on the accent and whites stay
-              white. `isolate` keeps the blend inside the cell instead of reaching
-              the paper behind it. */}
-          <div className="-mt-3 grid grid-cols-2 gap-2 lg:-mt-4">
+          <div className="mt-rhythm grid grid-cols-2 gap-[var(--grid-gutter)] lg:h-[35vh] lg:grid-rows-2">
             {PORTRAITS.map((portrait) => (
               <div
                 key={portrait.src}
-                className="relative isolate aspect-[4/3] overflow-hidden bg-accent"
+                className="relative aspect-[4/3] overflow-hidden lg:aspect-auto lg:h-full"
               >
                 <Image
                   src={portrait.src}
                   alt={portrait.alt}
                   fill
                   sizes="(min-width: 1024px) 16vw, 45vw"
-                  className="object-cover grayscale mix-blend-screen"
+                  className="object-cover"
                 />
               </div>
             ))}
@@ -102,7 +95,7 @@ export function CvPanel() {
               the real CV has five roles, not the nine the reference spread was
               drawn around, and the projects are what legitimately fill the
               second column. */}
-          <div className="mt-12 grid gap-x-rhythm gap-y-12 sm:grid-cols-2 lg:mt-[13vh]">
+          <div className="mt-stack grid gap-x-rhythm gap-y-stack sm:grid-cols-2 lg:mt-apart">
             <div>
               <SectionHeading>experience</SectionHeading>
               <EntryList entries={EXPERIENCE} />
@@ -115,7 +108,7 @@ export function CvPanel() {
         </div>
 
         {/* Right: the four stacked lists */}
-        <div className="col-span-full flex flex-col gap-12 lg:col-span-2 lg:col-start-11 lg:gap-[4.5vh] lg:pt-[4vh]">
+        <div className="col-span-full flex flex-col gap-stack lg:col-span-2 lg:col-start-11 lg:gap-near lg:pt-near">
           <div>
             <SectionHeading>professional skills</SectionHeading>
             <SkillList items={PROFESSIONAL_SKILLS} />

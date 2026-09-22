@@ -3,18 +3,56 @@
 @theme inline {
   --color-paper: #e8e7e3;
   --color-ink: #141414;
-  --color-accent: #2d28c8;
+  /* Secondary text is the same ink as everything else; hierarchy comes from
+     weight, not hue. Kept as its own token so the role stays nameable. */
+  --color-accent: #141414;
 
   --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
 
-  /* The one rhythm unit: a heading to the list it introduces, one entry to the
-     next, a block to the block beneath it. Available as `mt-rhythm`, `gap-rhythm`
-     and friends.
-     Not named `block`: that collides with Tailwind's display utilities, because
-     `inline-block` then also parses as the logical `inline-size` utility and
-     silently pins every `inline-block` element to this width. */
+  /* The spacing scale. Everything on the site picks from these six steps, so a
+     margin can't drift into a value nobody chose.
+
+     Three are absolute, for type and elements sitting next to each other:
+       hairline  a label to the thing it names
+       rhythm    a heading to its list, one entry to the next
+       stack     one block to the next inside a column
+
+     Three are viewport-relative, for placing blocks on a panel — the sheet is a
+     fixed height, so composition on it has to scale with that height:
+       near / far / apart
+
+     None is named `block`: that collides with Tailwind's display utilities,
+     because `inline-block` then also parses as the logical `inline-size` utility
+     and silently pins every inline-block element to this width. */
+  /* The display scale. Five steps, each with a job, so a heading can't be sized
+     by eye into a value between two others. Every one is viewport-relative: the
+     sheet is a fixed canvas, so type on it scales with the canvas.
+       cover    the opening wordmark, once
+       closing  its bookend, once
+       title    a section opening — the CV name, pensieri, shots
+       project  a project or divider heading
+       mark     the small typographic signature at a panel's foot */
+  /* Measures. A block of text or frames is held to one of these rather than to a
+     number picked at the moment of writing. */
+  --container-reading: 46ch;
+  --container-lines: 1360px;
+  --container-plate: 46rem;
+  --container-pair: 56rem;
+  --container-spread: 64rem;
+
+  --text-cover: clamp(3.5rem, 11vw, 14rem);
+  --text-closing: clamp(3rem, 9vw, 12rem);
+  --text-title: clamp(2.75rem, 7vw, 9rem);
+  --text-project: clamp(2.5rem, 5.5vw, 7rem);
+  --text-mark: clamp(1rem, 1.4vw, 1.5rem);
+
+  --spacing-hairline: 0.5rem;
   --spacing-rhythm: 1.5rem;
+  --spacing-stack: 3rem;
+  --spacing-near: 4vh;
+  --spacing-far: 8vh;
+  --spacing-apart: 13vh;
 }
 
 :root {
@@ -22,6 +60,19 @@
 
   --page-margin: clamp(1.25rem, 2.6vw, 3.25rem);
   --grid-gutter: clamp(0.75rem, 1.4vw, 1.5rem);
+
+  /* The content band. One horizontal stripe with the same height and the same
+     top and bottom edge on every panel of the site: media sits in it, small
+     type above and below. Travelling sideways then never makes a block jump up
+     the page or change size, which is what happens as soon as the band is
+     allowed to size itself to whatever text a panel happens to carry.
+
+     Media is sized from this height, never from a width — a row of frames picks
+     its height here and derives its width from the frames' own ratios. `inset`
+     is for the one case where frames share the band with something else. */
+  --band: 56vh;
+  --band-media: calc(var(--band) - 2.5rem);
+  --band-media-inset: calc(var(--band-media) * 0.58);
 }
 
 body {
@@ -38,8 +89,35 @@ body {
   }
 }
 
+/* The sideways layout. Gated on motion preference as well as width: the track is
+   only reachable because something animates it, so laying it out in a row when
+   nothing will move leaves every panel but the first stranded off-screen. */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .panel-viewport {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .panel-track {
+    display: flex;
+    height: 100vh;
+    width: max-content;
+  }
+
+  [data-panel] {
+    /* A section may claim more than one screen. Travel is measured from the
+       track's real width, so nothing else has to know that it does. */
+    width: calc(var(--panel-span, 1) * 100vw);
+    height: 100vh;
+    min-height: 0;
+  }
+}
+
 /* Paper grain. Fixed above everything so the texture never scrolls with the
    panels, which is what makes it read as the sheet rather than as content. */
+:root {
+}
+
 .grain {
   position: fixed;
   inset: 0;
@@ -67,12 +145,79 @@ body {
   padding: var(--page-margin);
 }
 
+/* The band is fixed and centred, and the two rows around it take what is left.
+   Only on the sideways canvas: on a phone a panel is a column that grows with
+   its content, and pinning a middle row there would just clip it. */
+@media (min-width: 1024px) {
+  .panel-grid {
+    grid-template-rows: 1fr var(--band) 1fr;
+  }
+}
+
+/* Phones: a panel is still at least a screen tall, but it may run past one when
+   its content stacks — so it needs real breathing room top and bottom rather
+   than the tight gutter the desktop canvas uses, or consecutive sections read as
+   one continuous column. */
+@media (max-width: 1023px) {
+  .panel-grid {
+    padding-block: calc(var(--page-margin) * 2.5);
+    row-gap: var(--page-margin);
+  }
+}
+
+/* A row of frames — the photography strip, a project's renders. One column on a
+   phone; on desktop, columns proportional to each frame's own aspect ratio, so
+   the row divides its container exactly and every frame comes out the same
+   height. Sizing frames in `vh` instead overruns the width budget on any screen
+   that is not 16:9. */
+.frame-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .frame-row {
+    grid-template-columns: var(--strip-columns);
+    /* Top of the band, not centre: a row with captions is taller than one
+       without, so centring lands the two at different heights on consecutive
+       panels. Anchored to the band's top edge they all start on the same line. */
+    align-content: start;
+    /* Height first. Every row of frames on the site stands the same height, so
+       the row takes the width those ratios need at that height rather than
+       being handed a width and ending up whatever height falls out. Capped at
+       the container, so a row too wide to fit shrinks instead of overflowing. */
+    width: min(
+      100%,
+      calc(
+        var(--row-height, var(--band-media)) * var(--strip-sum) +
+          var(--strip-gaps, 0px)
+      )
+    );
+    margin-inline: auto;
+    /* Frames sit on the page grid, so what separates them is the grid's own
+       gutter — the same space that runs between columns everywhere else. One
+       rule for every row of frames, rather than a value chosen per page. */
+    gap: 0 var(--grid-gutter);
+  }
+}
+
 /* Display type. Size and leading stay per-use; family, weight and the tight
    tracking the design depends on live here so they can't drift apart. */
 .headline {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.055em;
+  line-height: 0.85;
+}
+
+/* A line of this type stands about 16px tall, under the 24px a finger or a
+   pointer needs to hit reliably. The padding grows the target; the matching
+   negative margin gives the space back, so the list's rhythm is unchanged. */
+.tap-safe {
+  display: inline-block;
+  padding-block: 0.3rem;
+  margin-block: -0.3rem;
 }
 
 .label {
@@ -81,3 +226,11 @@ body {
   line-height: 1.5;
   letter-spacing: 0.06em;
 }
+
+
+/* Diagnostic only — see src/components/perf-probe.tsx. Nothing here applies
+   unless a flag is put on the document by hand, in development. */
+[data-noclips] video { display: none; }
+[data-noimg] img { visibility: hidden; }
+[data-noblur] * { filter: none !important; }
+[data-nograin] .grain { display: none; }

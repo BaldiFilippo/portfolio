@@ -16,7 +16,7 @@ const DISCIPLINES = [
 export function HeroPanel() {
   return (
     <Panel>
-      <div className="col-span-full row-start-2 grid grid-cols-subgrid content-center gap-y-8">
+      <div className="col-span-full row-start-2 grid grid-cols-subgrid content-center gap-y-rhythm">
         {/* Left of the wordmark and on its axis. Declared before it so grid
             auto-placement keeps both on one row: the cursor only moves forward,
             so a col-1 item written after a col-8 one gets pushed to the next. */}
@@ -24,7 +24,7 @@ export function HeroPanel() {
           Filippo Baldi
         </p>
 
-        <h1 className="headline col-span-full text-[clamp(3.5rem,11vw,14rem)] leading-[0.8] lg:col-span-4 lg:col-start-8">
+        <h1 className="headline col-span-full text-cover lg:col-span-4 lg:col-start-8">
           <span className="sr-only">Portfolio</span>
           <span aria-hidden>
             <BlurText>
@@ -35,7 +35,7 @@ export function HeroPanel() {
         </h1>
       </div>
 
-      <div className="col-span-full row-start-3 grid grid-cols-subgrid gap-y-2">
+      <div className="col-span-full row-start-3 grid grid-cols-subgrid gap-y-hairline self-end">
         {DISCIPLINES.map((discipline) => (
           <span
             key={discipline.label}

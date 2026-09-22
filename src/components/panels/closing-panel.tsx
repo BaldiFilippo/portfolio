@@ -11,8 +11,8 @@ export function ClosingPanel() {
   return (
     <Panel>
       <div className="col-span-full row-start-2 flex items-end justify-end">
-        <div className="mb-[6vh]">
-          <h2 className="headline text-[clamp(3rem,9vw,12rem)] leading-none">
+        <div className="mb-far">
+          <h2 className="headline text-closing">
             <span className="sr-only">Ciao</span>
             <span aria-hidden>
               {/* Gentler than the hero's ramp: the full-strength tail lands on

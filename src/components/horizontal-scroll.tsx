@@ -9,15 +9,20 @@ import Lenis from "lenis";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
- * Desktop: the panels are pinned and translated sideways in step with vertical
- * scrolling, free to stop anywhere. Lenis smooths the scroll itself; `scrub`
- * lets the track ease in behind it.
+ * Desktop: the track is pinned and slid sideways in step with vertical scrolling.
  *
- * Below `lg`, and whenever reduced motion is requested, none of this attaches and
- * the panels stay a plain vertical stack.
+ * Travel is measured from the track's own width rather than counted in panels,
+ * which is what lets a section be wider than one screen. Expressing it as "shift
+ * each panel by N times its own width" only holds while every panel is the same
+ * width: a three-screen section would move three times as far as its neighbours
+ * and tear away from them, and the scroll would run out before reaching the end.
+ *
+ * Below `lg`, and under reduced motion, none of this attaches and the panels stay
+ * a plain vertical stack.
  */
 export function HorizontalScroll({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -26,8 +31,11 @@ export function HorizontalScroll({ children }: { children: ReactNode }) {
       mm.add(
         "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
         () => {
-          const panels = gsap.utils.toArray<HTMLElement>("[data-panel]");
-          if (panels.length < 2) return;
+          const el = track.current;
+          if (!el) return;
+
+          const overflow = () => el.scrollWidth - window.innerWidth;
+          if (overflow() <= 0) return;
 
           const lenis = new Lenis();
           lenis.on("scroll", ScrollTrigger.update);
@@ -36,14 +44,14 @@ export function HorizontalScroll({ children }: { children: ReactNode }) {
           gsap.ticker.add(raf);
           gsap.ticker.lagSmoothing(0);
 
-          gsap.to(panels, {
-            xPercent: -100 * (panels.length - 1),
+          gsap.to(el, {
+            x: () => -overflow(),
             ease: "none",
             scrollTrigger: {
               trigger: root.current,
               pin: true,
               scrub: 1,
-              end: () => `+=${window.innerWidth * (panels.length - 1)}`,
+              end: () => `+=${overflow()}`,
               invalidateOnRefresh: true,
             },
           });
@@ -61,8 +69,8 @@ export function HorizontalScroll({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div ref={root} className="lg:h-screen lg:overflow-hidden">
-      <div className="flex flex-col lg:h-screen lg:w-max lg:flex-row">
+    <div ref={root} className="panel-viewport">
+      <div ref={track} className="panel-track">
         {children}
       </div>
     </div>
