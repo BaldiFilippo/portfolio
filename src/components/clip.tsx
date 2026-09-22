@@ -92,7 +92,10 @@ export function ClipFrame({ clip }: { clip: Clip }) {
   return (
     <figure>
       <div
-        className="relative w-full overflow-hidden bg-accent/15"
+        /* No plate behind a clip whose own ground is the paper. */
+        className={`relative w-full overflow-hidden ${
+          clip.onPaper ? "" : "bg-accent/15"
+        }`}
         style={{ aspectRatio: clip.ratio }}
       >
         <video
@@ -106,6 +109,12 @@ export function ClipFrame({ clip }: { clip: Clip }) {
           controls={still}
           aria-label={clip.alt}
           className="h-full w-full object-cover"
+          /* Not mix-blend-mode: a video gets its own compositing layer and
+             Chromium quietly drops the blend. The footage is greyscale line
+             art on white, so scaling brightness by the paper's own value
+             (232/255) lands the white ground on the sheet and leaves black
+             at black. */
+          style={clip.onPaper ? { filter: "brightness(0.9098)" } : undefined}
         />
       </div>
       {clip.caption ? (

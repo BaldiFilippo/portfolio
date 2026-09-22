@@ -33,13 +33,14 @@
        title    a section opening — the CV name, pensieri, shots
        project  a project or divider heading
        mark     the small typographic signature at a panel's foot */
-  /* Measures. A block of text or frames is held to one of these rather than to a
-     number picked at the moment of writing. */
+  /* Measures, for text. A block is held to one of these rather than to a number
+     picked at the moment of writing. Frames are not on this list: they take
+     their height from the content band and their width from their own ratio,
+     and the three width containers that used to size them are gone — holding a
+     row of frames to a width is what made each one resolve to a different
+     height in the first place. */
   --container-reading: 46ch;
   --container-lines: 1360px;
-  --container-plate: 46rem;
-  --container-pair: 56rem;
-  --container-spread: 64rem;
 
   --text-cover: clamp(3.5rem, 11vw, 14rem);
   --text-closing: clamp(3rem, 9vw, 12rem);
@@ -228,9 +229,3 @@ body {
 }
 
 
-/* Diagnostic only — see src/components/perf-probe.tsx. Nothing here applies
-   unless a flag is put on the document by hand, in development. */
-[data-noclips] video { display: none; }
-[data-noimg] img { visibility: hidden; }
-[data-noblur] * { filter: none !important; }
-[data-nograin] .grain { display: none; }

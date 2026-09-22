@@ -13,6 +13,8 @@ export type Clip = {
   alt: string;
   caption?: string;
   ratio: number;
+  /** Line art on white: its ground is the paper, so map it onto the paper. */
+  onPaper?: boolean;
 };
 
 export type Frame = {
@@ -139,6 +141,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
         alt: "An illustrated forearm wearing the band; the hand closes into a fist",
         caption: "as designed",
         ratio: 3 / 4,
+        onPaper: true,
       },
       {
         src: "/projects/wristband/gesture-court.mp4",
