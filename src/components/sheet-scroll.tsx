@@ -78,8 +78,15 @@ export function SheetScroll({ children }: { children: ReactNode }) {
           gsap.ticker.add(raf);
           gsap.ticker.lagSmoothing(0);
 
-          /** Where the empty screen begins, in track coordinates. */
-          const turnAt = () => (turn ? turn.offsetLeft - el.offsetLeft : 0);
+          /* The empty screen may sit on the corridor or at the foot of a
+             column, and the turn follows whichever journey carries it. */
+          const turnsDownward = !!(turn && column?.contains(turn));
+          const turnAt = () =>
+            !turn
+              ? 0
+              : turnsDownward
+                ? turn.offsetTop
+                : turn.offsetLeft - el.offsetLeft;
 
           const setX = gsap.quickSetter(el, "x", "px");
           const setY = inner ? gsap.quickSetter(inner, "y", "px") : null;
@@ -104,15 +111,25 @@ export function SheetScroll({ children }: { children: ReactNode }) {
               // Sideways travel holds still for exactly the stretch the column
               // is rising, then picks up where it left off.
               const x = Math.min(gone, pause) + Math.max(0, gone - pause - rise);
+              const y = Math.min(Math.max(gone - pause, 0), rise);
               setX(-x);
-              setY?.(-Math.min(Math.max(gone - pause, 0), rise));
+              setY?.(-y);
 
               // The turn runs across the one screen of travel that brings the
-              // empty panel from the right edge to filling the view, so it is
+              // empty panel from the far edge to filling the view, so it is
               // complete the moment there is nothing else on screen.
               if (turn) {
-                const screen = window.innerWidth;
-                setTint(gsap.utils.clamp(0, 1, (x - turnAt() + screen) / screen));
+                const screen = turnsDownward
+                  ? window.innerHeight
+                  : window.innerWidth;
+                const travelled = turnsDownward ? y : x;
+                setTint(
+                  gsap.utils.clamp(
+                    0,
+                    1,
+                    (travelled - turnAt() + screen) / screen,
+                  ),
+                );
               }
             },
           });

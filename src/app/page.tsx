@@ -1,4 +1,4 @@
-import { Panel } from "@/components/panel";
+import { Panel, PanelGap } from "@/components/panel";
 import { PanelColumn } from "@/components/panel-column";
 import { SheetScroll } from "@/components/sheet-scroll";
 import { BlogPanel } from "@/components/panels/blog-panel";
@@ -15,23 +15,28 @@ export default function Home() {
     <main className="relative z-10">
       <SheetScroll>
         <HeroPanel />
-        {/* Half a screen of paper, so the cover is not read as the CV's first
-            column and the sheet has somewhere to breathe between them. */}
-        <Panel span={0.5} gap />
+        <PanelGap />
         <CvPanel />
+        <PanelGap />
         <BlogPanel />
+        <PanelGap />
         {/* Read downward: the opening and the projects under it are one
             section, not four rooms along the corridor. */}
         <PanelColumn>
           <ProjectsPanel />
           <ProjectPages />
+          {/* A screen of nothing at the foot of the column. Turning the sheet
+              from paper to ink takes a full screen of travel, and doing it
+              under content would drag the photographs through a muddy middle.
+              It belongs here, at the end of the descent, so the turn is the
+              last thing the section does rather than the first thing the
+              corridor does. */}
+          <Panel turn />
         </PanelColumn>
-        {/* A screen of nothing. It is not a pause for its own sake: turning the
-            sheet from paper to ink takes a full screen of travel, and doing it
-            under content would drag the photographs through a muddy middle. */}
-        <Panel turn />
+        <PanelGap />
         <PhotographyPanel />
         <PhotographyStrip />
+        <PanelGap />
         <ClosingPanel />
       </SheetScroll>
     </main>

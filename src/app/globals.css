@@ -171,7 +171,15 @@ body {
      bites hardest because mid-greys are exactly where it has the most range. */
   z-index: 0;
   pointer-events: none;
-  opacity: 1;
+  /* Pulled back through the middle of the turn and full strength at either
+     end. Overlay has its widest range on mid-greys — the comment below says as
+     much — so a sheet caught halfway between paper and ink shows the texture at
+     several times the weight it has on either side of the journey, and the
+     transition reads as noise rather than as paper. The parabola is 1 at both
+     ends and 0.4 at the midpoint. */
+  opacity: calc(
+    1 - 2.4 * var(--sheet-tint) * (1 - var(--sheet-tint))
+  );
   mix-blend-mode: overlay;
   background-size: 200px 200px;
   /* feColorMatrix flattens RGB to grey and pins alpha to 1 — feTurbulence

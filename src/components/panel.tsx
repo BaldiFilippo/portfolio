@@ -31,3 +31,13 @@ export function Panel({
     </section>
   );
 }
+
+/**
+ * The breath between two sections of the sheet. One fifth of a screen, the same
+ * everywhere: sections that butt up against each other read as one long spread,
+ * and the eye needs somewhere to land between the end of an argument and the
+ * start of the next.
+ */
+export function PanelGap() {
+  return <Panel span={0.2} gap />;
+}
