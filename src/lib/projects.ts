@@ -86,82 +86,11 @@ export const PROJECT_PAGES: ProjectPage[] = [
     name: "wristband.",
     label: "concept",
     tagline: "smart basketball wristband, gesture logging",
-    meta: [
-      "UX/UI and interaction lead",
-      "Human–machine interaction, University of Trento",
-      "January 2025",
-    ],
+    meta: ["UX/UI and interaction lead", "Interaction Design", "January 2025"],
     lines: [
-      "Football handed amateurs GPS trackers and instrumented balls. A game on a neighbourhood court still runs on what the players remember.",
-      "Memory is the flaw. The score lives in four heads at once, and that is where the arguments start.",
-      "The brief was a device for the people who play outside any structure — no coach, no scoreboard, nobody keeping the book.",
-      "So the count comes off the gesture itself and stays on the wrist. The moment it moves to a screen, the game stops.",
+      "A wristband that logs a basketball shot from the gesture itself — no phone, no tapping, no break in play.",
     ],
-    pdf: {
-      href: "/projects/wristband/wristband-presentation.pdf",
-      label: "full presentation, pdf",
-    },
-    rivalsHeading: "what was already on the market",
-    rivalsIntro:
-      "Three products had claimed the space by 2025. Each one is good at something, and each one solves a different game to the one being played in the park.",
-    rivals: [
-      {
-        name: "Wilson X Connected Basketball",
-        premise: "sensors built into the ball",
-        strength: "Nothing extra to wear or install, and the stats arrive live.",
-        limit:
-          "Individual training only — it cannot read a team game — and the sensor's battery is sealed in.",
-      },
-      {
-        name: "HomeCourt",
-        premise: "a phone camera and computer vision",
-        strength: "No hardware at all: the phone is already in everyone's pocket.",
-        limit:
-          "Accuracy follows the camera, the space and the light. The real analysis sits behind a subscription.",
-      },
-      {
-        name: "ShotTracker",
-        premise: "wrist sensor, hoop sensor, connected ball",
-        strength: "Detailed shot and position data across a whole team at once.",
-        limit:
-          "Three components to install on a court nobody owns, at a price no pickup game will pay — and one failure takes the system down.",
-      },
-    ],
-    gap:
-      "Nothing in the field served the ordinary case: four friends, a public hoop, and no agreement on the score.",
-    clipsHeading: "the gesture",
-    clipsLines: [
-      "The hand closes. That is the whole input.",
-      "Nothing to press, nothing to unlock, nobody stepping off the court to key in a number. An interaction that interrupts the game does not get used — so this one had to disappear into it.",
-    ],
-    clips: [
-      {
-        src: "/projects/wristband/gesture-designed.mp4",
-        poster: "/projects/wristband/gesture-designed-poster.png",
-        alt: "An illustrated forearm wearing the band; the hand closes into a fist",
-        caption: "as designed",
-        ratio: 3 / 4,
-        onPaper: true,
-      },
-      {
-        src: "/projects/wristband/gesture-court.mp4",
-        poster: "/projects/wristband/gesture-court-poster.png",
-        alt: "First-person view on an outdoor court: a shot goes up, then the hand closes into a fist",
-        caption: "prototype, public court",
-        ratio: 3 / 4,
-      },
-    ],
-    visualPages: [
-      [
-        {
-          src: "/projects/wristband/app-screens.png",
-          alt: "The full screen inventory of the companion app, around fifty screens",
-          caption: "companion app, every screen",
-          orientation: "landscape",
-          ratio: 4096 / 2306,
-        },
-      ],
-    ],
+    visualPages: [[{ orientation: "landscape" }, { orientation: "landscape" }]],
   },
   {
     name: "coaster.",
