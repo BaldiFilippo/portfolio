@@ -91,18 +91,12 @@ export const PROJECT_PAGES: ProjectPage[] = [
     visualPages: [
       [
         {
-          src: "/projects/sat/sat-mobile-home.png",
-          alt: "The member home on a phone: digital card, days left on the membership, and the year stamps collected since joining",
-          caption: "member home, mobile",
-          orientation: "portrait",
-          ratio: 780 / 1688,
-        },
-        {
-          src: "/projects/sat/sat-desktop-card.png",
-          alt: "The desktop version: the digital card with its QR code, and the full run of year stamps",
-          caption: "the card and its stamps, desktop",
+          src: "/projects/sat/sat-screens.jpg",
+          alt: "The redesigned mobile web app, laid out across a grid of phones: registration, joining, family management, and the digital card with its year stamps",
+          caption: "the mobile web app",
           orientation: "landscape",
-          ratio: 2048 / 1330,
+          ratio: 2000 / 1660,
+          tall: true,
         },
       ],
     ],
