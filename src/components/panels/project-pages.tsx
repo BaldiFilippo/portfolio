@@ -23,9 +23,10 @@ function ConceptPanel({ project }: { project: ProjectPage }) {
         ))}
       </ul>
 
-      {/* Anchored to the top-right corner, mirroring the divider's bottom-right
-          block. Text stays left-aligned inside it; only the block moves. */}
-      <div className="col-span-full row-start-2 flex items-start justify-end">
+      {/* Top-left, under the meta list, so the whole opening of a project reads
+          as one column down the left edge rather than as two blocks facing each
+          other across an empty middle. */}
+      <div className="col-span-full row-start-2 flex items-start justify-start">
         <div className="max-w-reading">
           <h2 className="headline text-project">
             {project.name}
