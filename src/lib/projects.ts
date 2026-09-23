@@ -74,19 +74,38 @@ export type ProjectPage = {
  */
 export const PROJECT_PAGES: ProjectPage[] = [
   {
-    // Placeholder. The name is a working title and the pages are empty slots:
-    // nothing here is written until there is something true to write. Meta is
-    // taken from the CV, which is the only part of it that exists yet.
     name: "sat.",
     label: "concept",
-    tagline: "sat web app, redesign",
+    tagline: "sat web app, membership redesign",
     meta: [
-      "UX/UI Designer",
+      "UX/UI design, team of four",
       "SAT — Società Alpinisti Tridentini, Trento",
-      "2025",
+      "February – December 2025",
     ],
-    lines: [],
-    visualPages: [[{ orientation: "landscape" }, { orientation: "landscape" }]],
+    lines: [
+      "SAT hands every member a card and, for each year they renew, a stamp to collect. The web app had to carry all of it: joining, renewing, a whole family's memberships, and the card itself.",
+      "It opened as a UX Challenge and ran on for the rest of the year — wireframes going back to SAT after every review, and coming back changed.",
+      "The sharpest finding needed no prototype. On a phone, the only way into the existing app was to scroll to the foot of SAT's own homepage: the way in was not in the menu.",
+      "The work finished wider than it started. The mobile screens redrawn, a desktop version that had never existed, and content templates so every page written later could be laid out without designing it again.",
+    ],
+    visualPages: [
+      [
+        {
+          src: "/projects/sat/sat-mobile-home.png",
+          alt: "The member home on a phone: digital card, days left on the membership, and the year stamps collected since joining",
+          caption: "member home, mobile",
+          orientation: "portrait",
+          ratio: 780 / 1688,
+        },
+        {
+          src: "/projects/sat/sat-desktop-card.png",
+          alt: "The desktop version: the digital card with its QR code, and the full run of year stamps",
+          caption: "the card and its stamps, desktop",
+          orientation: "landscape",
+          ratio: 2048 / 1330,
+        },
+      ],
+    ],
   },
   {
     name: "inRange.",
