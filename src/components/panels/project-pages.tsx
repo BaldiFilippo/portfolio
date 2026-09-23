@@ -27,7 +27,10 @@ function ConceptPanel({ project }: { project: ProjectPage }) {
       {/* Top-left, under the meta list, so the whole opening of a project reads
           as one column down the left edge rather than as two blocks facing each
           other across an empty middle. */}
-      <div className="col-span-full row-start-2 flex items-start justify-start">
+      {/* `stack` — one block to the next inside a column. Without it the meta
+          list and the title sit on touching grid rows, and what looks like a
+          margin is only the headline's own leading. */}
+      <div className="col-span-full row-start-2 mt-stack flex items-start justify-start">
         <div className="max-w-reading">
           <h2 className="headline text-project">
             {project.name}

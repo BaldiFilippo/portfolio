@@ -79,13 +79,13 @@ export const PROJECTS: Entry[] = [
     period: "2026",
   },
   {
-    role: "Smart Basketball Wristband",
-    place: "UX/UI and interaction lead",
+    role: "scoreband",
+    place: "UX/UI and interaction lead — smart basketball wristband",
     period: "January 2025",
   },
   {
-    role: "Smart Alarm Clock Against Dehydration",
-    place: "Product and interaction lead",
+    role: "waterAlarm",
+    place: "Product and interaction lead — smart alarm clock against dehydration",
     period: "November 2024",
   },
   {

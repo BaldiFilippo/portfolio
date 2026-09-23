@@ -74,6 +74,21 @@ export type ProjectPage = {
  */
 export const PROJECT_PAGES: ProjectPage[] = [
   {
+    // Placeholder. The name is a working title and the pages are empty slots:
+    // nothing here is written until there is something true to write. Meta is
+    // taken from the CV, which is the only part of it that exists yet.
+    name: "sat.",
+    label: "concept",
+    tagline: "sat web app, redesign",
+    meta: [
+      "UX/UI Designer",
+      "SAT — Società Alpinisti Tridentini, Trento",
+      "2025",
+    ],
+    lines: [],
+    visualPages: [[{ orientation: "landscape" }, { orientation: "landscape" }]],
+  },
+  {
     name: "inRange.",
     label: "concept",
     tagline: "inrange, insulin pump companion app",
@@ -86,7 +101,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
     visualPages: [[{ orientation: "landscape" }, { orientation: "portrait" }]],
   },
   {
-    name: "wristband.",
+    name: "scoreband.",
     label: "concept",
     tagline: "smart basketball wristband, gesture logging",
     meta: [
@@ -101,7 +116,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
       "So the count comes off the gesture itself and stays on the wrist. The moment it moves to a screen, the game stops.",
     ],
     pdf: {
-      href: "/projects/wristband/wristband-presentation.pdf",
+      href: "/projects/scoreband/scoreband-presentation.pdf",
       label: "full presentation, pdf",
     },
     rivalsHeading: "what was already on the market",
@@ -139,16 +154,16 @@ export const PROJECT_PAGES: ProjectPage[] = [
     ],
     clips: [
       {
-        src: "/projects/wristband/gesture-designed.mp4",
-        poster: "/projects/wristband/gesture-designed-poster.png",
+        src: "/projects/scoreband/gesture-designed.mp4",
+        poster: "/projects/scoreband/gesture-designed-poster.png",
         alt: "An illustrated forearm wearing the band; the hand closes into a fist",
         caption: "as designed",
         ratio: 3 / 4,
         onPaper: true,
       },
       {
-        src: "/projects/wristband/gesture-court.mp4",
-        poster: "/projects/wristband/gesture-court-poster.png",
+        src: "/projects/scoreband/gesture-court.mp4",
+        poster: "/projects/scoreband/gesture-court-poster.png",
         alt: "First-person view on an outdoor court: a shot goes up, then the hand closes into a fist",
         caption: "prototype, public court",
         ratio: 3 / 4,
@@ -157,7 +172,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
     visualPages: [
       [
         {
-          src: "/projects/wristband/app-screens.png",
+          src: "/projects/scoreband/app-screens.png",
           alt: "The full screen inventory of the companion app, around fifty screens",
           caption: "companion app, every screen",
           orientation: "landscape",
@@ -168,7 +183,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
     ],
   },
   {
-    name: "coaster.",
+    name: "waterAlarm.",
     label: "concept",
     tagline: "smart alarm clock against dehydration",
     meta: [
@@ -183,7 +198,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
       "The second answer fell out of the first. Snoozing is a decision made half asleep — so the design removes the decision. The only way to silence the alarm is to drink, and drinking is itself an act that wakes you.",
     ],
     pdf: {
-      href: "/projects/coaster/coaster-presentation.pdf",
+      href: "/projects/water-alarm/water-alarm-presentation.pdf",
       label: "full presentation, pdf",
     },
     visualPages: [
@@ -191,13 +206,13 @@ export const PROJECT_PAGES: ProjectPage[] = [
       // the same object, so they are set as a pair rather than two lone plates.
       [
         {
-          src: "/projects/coaster/coaster-app.webp",
+          src: "/projects/water-alarm/water-alarm-app.webp",
           alt: "The companion app open in a hand, showing the device and its alarms",
           orientation: "landscape",
           ratio: 4 / 3,
         },
         {
-          src: "/projects/coaster/coaster-finishes.webp",
+          src: "/projects/water-alarm/water-alarm-finishes.webp",
           alt: "The coaster in white, walnut and black finishes",
           caption: "made with Blender",
           orientation: "landscape",
@@ -223,13 +238,13 @@ export const PROJECT_PAGES: ProjectPage[] = [
     flowLoops: true,
     flowFrames: [
       {
-        src: "/projects/coaster/coaster-armed.webp",
+        src: "/projects/water-alarm/water-alarm-armed.webp",
         alt: "A glass of water resting on the wooden coaster, indicator lit white",
         orientation: "landscape",
         ratio: 1473 / 1068,
       },
       {
-        src: "/projects/coaster/coaster-lifted.webp",
+        src: "/projects/water-alarm/water-alarm-lifted.webp",
         alt: "The glass lifted clear of the coaster, indicator lit green",
         orientation: "landscape",
         ratio: 1413 / 1113,
