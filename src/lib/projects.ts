@@ -168,35 +168,27 @@ export const PROJECT_PAGES: ProjectPage[] = [
       "Graphic interface design, University of Trento",
       "2026",
     ],
+    pdf: {
+      href: "/projects/inrange/inrange-presentation.pdf",
+      label: "full report, pdf",
+    },
     lines: [
       "Type 1 diabetes with a pump paces the whole day. Carbohydrates estimated and a bolus dosed before every meal, the basal rate lowered or suspended for exercise, alarms through the night — and since food, stress, timing and even the weather move the numbers, none of it settles into a routine.",
       "Thirteen pain points came out of the domain analysis and went onto three people rather than being averaged into one user: someone who needs to feel in control, someone who lives at speed and forgets the pre-meal bolus, someone who trains. One app has to hold all three at once.",
       "And a line it does not cross. It never calculates a dose, never advises one, never makes a therapeutic decision, and it is not an instrument for the clinic — the diabetologist stays an indirect reader of it. Drawing that boundary first is what left everything else free to be designed.",
     ],
-    flowHeading: "the night alarm",
-    flowLines: [
-      "The problem was never the alarm. It was not knowing, in the first second, whether it mattered — so every signal read as potentially critical and cost a waking. What was lost was not the sleep but the trust.",
+    visualPages: [
+      [
+        {
+          src: "/projects/inrange/inrange-home.webp",
+          alt: "The home screen held in one hand in bed: glucose at 110, the pump and sensor both running, and the last three actions taken",
+          caption: "the home, as a control panel",
+          orientation: "landscape",
+          ratio: 2000 / 1333,
+          tall: true,
+        },
+      ],
     ],
-    flow: [
-      {
-        marker: "03:23",
-        label: "The pump alarms in the dark",
-      },
-      {
-        marker: "icon, colour, one line",
-        label:
-          "Low glucose, act now — or a sensor battery at 50%, which can wait until morning",
-      },
-      {
-        marker: "seconds",
-        label: "The severity is legible before anything is unlocked",
-      },
-      {
-        marker: "minimum action",
-        label: "Do only what the alarm asks for, and go back to sleep",
-      },
-    ],
-    visualPages: [[{ orientation: "landscape" }, { orientation: "portrait" }]],
   },
   {
     name: "waterAlarm.",
