@@ -74,48 +74,6 @@ export type ProjectPage = {
  */
 export const PROJECT_PAGES: ProjectPage[] = [
   {
-    name: "webapp redesign: SAT",
-    // The others are university briefs; this one was paid for. The label is
-    // the only place on the page where that distinction can be made.
-    label: "commissioned work",
-    tagline: "sat web app, membership redesign",
-    meta: [
-      "UX/UI design, team of four",
-      "SAT — Società Alpinisti Tridentini, Trento",
-      "February – December 2025",
-    ],
-    lines: [
-      "SAT commissioned the work after a UX Challenge, and it ran on for the rest of the year.",
-      "We restructured how the app is used, starting from research and interviews rather than from screens: joining, renewing, carrying a card, and looking after a whole family's memberships.",
-      "Much of what the app needed, the association already had and was not using. The stamp a member collects for every year they renew is the clearest case — paperwork, until it became the part of the screen that says how long you have belonged.",
-      "One finding needed no prototype at all. On a phone, the only way into the existing app was to scroll to the foot of SAT's own homepage: the way in was not in the menu.",
-    ],
-    visualPages: [
-      [
-        {
-          src: "/projects/sat-redesign/sat-redesign-screens.jpg",
-          alt: "The redesigned mobile web app, laid out across a grid of phones: registration, joining, family management, and the digital card with its year stamps",
-          caption: "the mobile web app",
-          orientation: "landscape",
-          ratio: 2000 / 1660,
-          tall: true,
-        },
-      ],
-    ],
-  },
-  {
-    name: "inRange.",
-    label: "concept",
-    tagline: "inrange, insulin pump companion app",
-    meta: ["Sole designer", "User Research", "2026"],
-    lines: [
-      "A companion app for an insulin micro-infusion pump, redesigned around the people who carry one.",
-      "Fourteen pain points surfaced through research, then mapped across three personas rather than averaged into one.",
-      "Each persona kept its own flow, because a person managing a chronic condition and a person newly diagnosed are not the same user.",
-    ],
-    visualPages: [[{ orientation: "landscape" }, { orientation: "portrait" }]],
-  },
-  {
     name: "scoreband.",
     label: "concept",
     tagline: "smart basketball wristband, gesture logging",
@@ -198,6 +156,18 @@ export const PROJECT_PAGES: ProjectPage[] = [
     ],
   },
   {
+    name: "inRange.",
+    label: "concept",
+    tagline: "inrange, insulin pump companion app",
+    meta: ["Sole designer", "User Research", "2026"],
+    lines: [
+      "A companion app for an insulin micro-infusion pump, redesigned around the people who carry one.",
+      "Fourteen pain points surfaced through research, then mapped across three personas rather than averaged into one.",
+      "Each persona kept its own flow, because a person managing a chronic condition and a person newly diagnosed are not the same user.",
+    ],
+    visualPages: [[{ orientation: "landscape" }, { orientation: "portrait" }]],
+  },
+  {
     name: "waterAlarm.",
     label: "concept",
     tagline: "smart alarm clock against dehydration",
@@ -264,6 +234,36 @@ export const PROJECT_PAGES: ProjectPage[] = [
         orientation: "landscape",
         ratio: 1413 / 1113,
       },
+    ],
+  },
+  {
+    name: "webapp redesign: SAT",
+    // The others are university briefs; this one was paid for. The label is
+    // the only place on the page where that distinction can be made.
+    label: "commissioned work",
+    tagline: "sat web app, membership redesign",
+    meta: [
+      "UX/UI design, team of four",
+      "SAT — Società Alpinisti Tridentini, Trento",
+      "February – December 2025",
+    ],
+    lines: [
+      "SAT commissioned the work after a UX Challenge, and it ran on for the rest of the year.",
+      "We restructured how the app is used, starting from research and interviews rather than from screens: joining, renewing, carrying a card, and looking after a whole family's memberships.",
+      "Much of what the app needed, the association already had and was not using. The stamp a member collects for every year they renew is the clearest case — paperwork, until it became the part of the screen that says how long you have belonged.",
+      "One finding needed no prototype at all. On a phone, the only way into the existing app was to scroll to the foot of SAT's own homepage: the way in was not in the menu.",
+    ],
+    visualPages: [
+      [
+        {
+          src: "/projects/sat-redesign/sat-redesign-screens.jpg",
+          alt: "The redesigned mobile web app, laid out across a grid of phones: registration, joining, family management, and the digital card with its year stamps",
+          caption: "the mobile web app",
+          orientation: "landscape",
+          ratio: 2000 / 1660,
+          tall: true,
+        },
+      ],
     ],
   },
 ];
