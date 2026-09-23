@@ -164,6 +164,15 @@ function FlowPanel({ project }: { project: ProjectPage }) {
 
   return (
     <Panel>
+      {project.flowHeading ? (
+        <div className="label col-span-full row-start-1 max-w-reading lg:col-span-5">
+          <h3>{project.flowHeading}</h3>
+          <div className="mt-hairline flex flex-col opacity-70">
+            {project.flowLines?.map((line) => <p key={line}>{line}</p>)}
+          </div>
+        </div>
+      ) : null}
+
       <div className="col-span-full row-start-2 flex flex-col justify-center gap-near">
         {/* Held to a narrow measure: these two sit with the chain rather than
             carrying a page of their own, so they read as evidence for it. */}

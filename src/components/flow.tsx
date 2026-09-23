@@ -56,7 +56,10 @@ export function Flow({
       {steps.map((step, i) => (
         <li
           key={step.label}
-          className="flex flex-1 flex-col lg:flex-row lg:items-center"
+          /* stretch, not center: centring leaves each box at its own text's
+             height, so a step that wraps to three lines stands taller than its
+             neighbours. The mark between them centres itself. */
+          className="flex flex-1 flex-col lg:flex-row lg:items-stretch"
         >
           <div className="flex-1 border border-ink/25 p-rhythm">
             {step.marker ? (
