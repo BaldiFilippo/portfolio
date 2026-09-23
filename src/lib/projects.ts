@@ -75,7 +75,9 @@ export type ProjectPage = {
 export const PROJECT_PAGES: ProjectPage[] = [
   {
     name: "sat.",
-    label: "concept",
+    // The others are university briefs; this one was paid for. The label is
+    // the only place on the page where that distinction can be made.
+    label: "commissioned work",
     tagline: "sat web app, membership redesign",
     meta: [
       "UX/UI design, team of four",
@@ -83,10 +85,10 @@ export const PROJECT_PAGES: ProjectPage[] = [
       "February – December 2025",
     ],
     lines: [
-      "SAT hands every member a card and, for each year they renew, a stamp to collect. The web app had to carry all of it: joining, renewing, a whole family's memberships, and the card itself.",
-      "It opened as a UX Challenge and ran on for the rest of the year — wireframes going back to SAT after every review, and coming back changed.",
-      "The sharpest finding needed no prototype. On a phone, the only way into the existing app was to scroll to the foot of SAT's own homepage: the way in was not in the menu.",
-      "The work finished wider than it started. The mobile screens redrawn, a desktop version that had never existed, and content templates so every page written later could be laid out without designing it again.",
+      "SAT commissioned the work after a UX Challenge, and it ran on for the rest of the year.",
+      "We restructured how the app is used, starting from research and interviews rather than from screens: joining, renewing, carrying a card, and looking after a whole family's memberships.",
+      "Much of what the app needed, the association already had and was not using. The stamp a member collects for every year they renew is the clearest case — paperwork, until it became the part of the screen that says how long you have belonged.",
+      "One finding needed no prototype at all. On a phone, the only way into the existing app was to scroll to the foot of SAT's own homepage: the way in was not in the menu.",
     ],
     visualPages: [
       [
