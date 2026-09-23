@@ -17,7 +17,7 @@ import { PROJECT_PAGES, type Frame, type ProjectPage } from "@/lib/projects";
 
 function ConceptPanel({ project }: { project: ProjectPage }) {
   return (
-    <Panel>
+    <Panel compact>
       <ul className="label col-span-full row-start-1 flex flex-col lg:col-span-3">
         {project.meta.map((item) => (
           <li key={item}>{item}</li>

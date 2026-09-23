@@ -213,6 +213,17 @@ body {
   }
 }
 
+/* Inside a column a panel may take only the height it needs. A screen given
+   over to a title and three lines leaves three quarters of a screen of nothing
+   between the opening of a project and the thing it opens — which reads as a
+   missing page rather than as air. Scoped to the column: on the track a panel
+   is a screen, and always will be. */
+.panel-column [data-compact] {
+  height: auto;
+  min-height: 0;
+  grid-template-rows: auto auto auto;
+}
+
 /* A gap only exists where the sheet runs sideways. Stacked, it would be a
    blank screen between two sections rather than a breath between them. */
 @media (max-width: 1023px) {

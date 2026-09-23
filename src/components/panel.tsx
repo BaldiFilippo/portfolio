@@ -6,6 +6,10 @@ type PanelProps = {
   span?: number;
   /** Marks the screen the sheet turns over on. There is only one. */
   turn?: boolean;
+  /** Takes only the height its content needs. For a panel read as part of a
+   *  column, where a full screen given to three lines of type leaves most of a
+   *  screen of nothing before the content it introduces. */
+  compact?: boolean;
   /** Breathing room on the sideways canvas. Dropped where there is no canvas:
    *  stacked, an empty panel is a blank screen rather than a gap. */
   gap?: boolean;
@@ -17,6 +21,7 @@ export function Panel({
   span = 1,
   turn,
   gap,
+  compact,
   className = "",
 }: PanelProps) {
   return (
@@ -24,6 +29,7 @@ export function Panel({
       data-panel
       data-turn={turn ? "" : undefined}
       data-gap={gap ? "" : undefined}
+      data-compact={compact ? "" : undefined}
       style={{ "--panel-span": span } as CSSProperties}
       className={`panel-grid relative min-h-dvh w-full overflow-hidden ${className}`}
     >
