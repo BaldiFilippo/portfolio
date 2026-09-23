@@ -7,8 +7,13 @@ import { SHOTS } from "@/lib/cv";
 const RATIO = { landscape: 3 / 2, portrait: 2 / 3 } as const;
 
 /**
- * The one section that is not a single screen: three viewports of photographs
+ * The one section that is not a single screen: four viewports of photographs
  * read as one continuous strip.
+ *
+ * Four and not three because the span has to be whatever lets the frames stand
+ * at the band's own height. At three the row ran out of width and shrank, and
+ * the photographs — alone on the site — came out 4px shorter than every other
+ * frame, with their captions 4px higher.
  *
  * On desktop, column widths are proportional to each frame's own aspect ratio, so
  * the row always divides the section exactly and every frame still resolves to
@@ -20,19 +25,18 @@ const RATIO = { landscape: 3 / 2, portrait: 2 / 3 } as const;
  */
 export function PhotographyStrip() {
   return (
-    <Panel span={3}>
+    <Panel span={4}>
       <FrameRow
         ratios={SHOTS.map((shot) => RATIO[shot.orientation])}
         className="col-span-full row-start-2"
       >
         {SHOTS.map((shot, i) => (
           <figure key={shot.src ?? `slot-${i}`}>
+            {/* One statement of the ratio, not two: the class used to repeat
+                what RATIO already says, and the two could drift apart. */}
             <div
-              className={`relative w-full ${
-                shot.orientation === "landscape"
-                  ? "aspect-[3/2]"
-                  : "aspect-[2/3]"
-              }`}
+              className="relative w-full"
+              style={{ aspectRatio: RATIO[shot.orientation] }}
             >
               {shot.src ? (
                 <Image

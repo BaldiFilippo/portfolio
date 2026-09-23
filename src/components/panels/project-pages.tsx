@@ -6,7 +6,6 @@ import { ClipFrame } from "@/components/clip";
 import { Comparison } from "@/components/comparison";
 import { Flow } from "@/components/flow";
 import {
-  BAND,
   BAND_MEDIA,
   BAND_MEDIA_INSET,
   frameSizes,
@@ -73,8 +72,7 @@ function FrameRow({
   rowHeight?: string;
   className?: string;
 }) {
-  const height =
-    rowHeight ?? (frames.some((f) => f.tall) ? BAND : BAND_MEDIA);
+  const height = rowHeight ?? BAND_MEDIA;
 
   return (
     <Row ratios={frames.map(ratioOf)} rowHeight={height} className={className}>

@@ -1,13 +1,13 @@
 import type { CSSProperties, ReactNode } from "react";
 
-/* Mirrors --band-media and --band-media-inset in globals.css. `sizes` cannot
-   read a custom property, so the band is spelled out again here — keep the two
-   in step. It matters: a frame's width is its ratio times this height, and a
-   `sizes` hint that claims otherwise makes the browser fetch and upload a
-   texture several times larger than anything it will draw. */
-export const BAND = "56vh";
-export const BAND_MEDIA = "calc(56vh - 2.5rem)";
-export const BAND_MEDIA_INSET = "calc((56vh - 2.5rem) * 0.58)";
+/* Mirrors --band, --band-caption and --band-media-inset in globals.css, which
+   is the source of truth. `sizes` takes a plain CSS length and cannot read a
+   custom property, so the band has to be spelled out a second time here — keep
+   the two in step. It matters: a frame's width is its ratio times this height,
+   and a `sizes` hint that claims otherwise makes the browser fetch and upload a
+   texture several times larger than anything it will ever draw. */
+export const BAND_MEDIA = "calc(56vh - 1.75rem)";
+export const BAND_MEDIA_INSET = "calc((56vh - 1.75rem) * 0.58)";
 
 /** What a frame of this ratio actually occupies on the band. */
 export function frameSizes(ratio: number, height: string = BAND_MEDIA) {

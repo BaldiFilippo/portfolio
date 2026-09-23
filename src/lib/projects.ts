@@ -25,9 +25,6 @@ export type Frame = {
   orientation: "landscape" | "portrait";
   /** The frame's own width/height. Falls back to the orientation's default. */
   ratio?: number;
-  /** Takes the whole band rather than leaving the caption's allowance inside
-   *  it. Worth about 8%: the band is the ceiling, and it is shared. */
-  tall?: boolean;
 };
 
 export type ProjectPage = {
@@ -132,7 +129,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
     clips: [
       {
         src: "/projects/scoreband/gesture-designed.mp4",
-        poster: "/projects/scoreband/gesture-designed-poster.png",
+        poster: "/projects/scoreband/gesture-designed-poster.webp",
         alt: "An illustrated forearm wearing the band; the hand closes into a fist",
         caption: "as designed",
         ratio: 3 / 4,
@@ -140,7 +137,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
       },
       {
         src: "/projects/scoreband/gesture-court.mp4",
-        poster: "/projects/scoreband/gesture-court-poster.png",
+        poster: "/projects/scoreband/gesture-court-poster.webp",
         alt: "First-person view on an outdoor court: a shot goes up, then the hand closes into a fist",
         caption: "prototype, public court",
         ratio: 3 / 4,
@@ -154,7 +151,6 @@ export const PROJECT_PAGES: ProjectPage[] = [
           caption: "companion app, every screen",
           orientation: "landscape",
           ratio: 4096 / 2306,
-          tall: true,
         },
       ],
     ],
@@ -185,7 +181,6 @@ export const PROJECT_PAGES: ProjectPage[] = [
           caption: "the home, as a control panel",
           orientation: "landscape",
           ratio: 2000 / 1333,
-          tall: true,
         },
       ],
     ],
@@ -284,7 +279,6 @@ export const PROJECT_PAGES: ProjectPage[] = [
           caption: "the mobile web app",
           orientation: "landscape",
           ratio: 2000 / 1660,
-          tall: true,
         },
       ],
     ],

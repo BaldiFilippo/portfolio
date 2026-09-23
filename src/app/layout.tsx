@@ -13,10 +13,26 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
+const DESCRIPTION =
+  "UX/UI and interaction designer, front-end developer. Brescia, Italy.";
+
 export const metadata: Metadata = {
   title: "Filippo Baldi — Portfolio",
-  description:
-    "UX/UI and interaction designer, front-end developer. Brescia, Italy.",
+  description: DESCRIPTION,
+  // Shared links previously unfurled with nothing on them: no title, no
+  // description, no card. There is no share image yet, so none is claimed —
+  // pointing at one that does not exist is worse than leaving it out.
+  openGraph: {
+    title: "Filippo Baldi — Portfolio",
+    description: DESCRIPTION,
+    type: "website",
+    locale: "en",
+  },
+  twitter: {
+    card: "summary",
+    title: "Filippo Baldi — Portfolio",
+    description: DESCRIPTION,
+  },
 };
 
 // Without this the browser tints its chrome from the page background, which

@@ -1,14 +1,41 @@
 @import "tailwindcss";
 
 @theme {
+  /* Colour. Secondary text is the same ink as everything else; hierarchy comes
+     from weight, not hue, but the role stays nameable. These three are only
+     defaults: `:root` below mixes the live values from the two ends of the
+     sheet, which is what lets the sheet turn over halfway through the journey. */
   --color-paper: #e8e7e3;
   --color-ink: #141414;
-  /* Secondary text is the same ink as everything else; hierarchy comes from
-     weight, not hue. Kept as its own token so the role stays nameable. */
   --color-accent: #141414;
 
   --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
+
+  /* Measures, for text. A block is held to one of these rather than to a number
+     picked at the moment of writing. Frames are not on this list: they take
+     their height from the content band and their width from their own ratio,
+     and the width containers that used to size them are gone — holding a row of
+     frames to a width is what made each row resolve to a different height. */
+  --container-reading: 46ch;
+  --container-lines: 1360px;
+
+  /* The type scale. Six steps, each with a job, so nothing can be sized by eye
+     into a value between two others:
+       cover    the opening wordmark, once
+       closing  its bookend, once
+       title    a section opening — the CV name, pensieri, shots
+       project  a project or divider heading
+       mark     the small typographic signature at a panel's foot
+       label    everything else on the site
+     The five display steps are viewport-relative because the sheet is a fixed
+     canvas and type on it has to scale with the canvas. */
+  --text-cover: clamp(3.5rem, 11vw, 14rem);
+  --text-closing: clamp(3rem, 9vw, 12rem);
+  --text-title: clamp(2.75rem, 7vw, 9rem);
+  --text-project: clamp(2.5rem, 5.5vw, 7rem);
+  --text-mark: clamp(1rem, 1.4vw, 1.5rem);
+  --text-label: clamp(0.625rem, 0.72vw, 0.8125rem);
 
   /* The spacing scale. Everything on the site picks from these six steps, so a
      margin can't drift into a value nobody chose.
@@ -25,29 +52,6 @@
      None is named `block`: that collides with Tailwind's display utilities,
      because `inline-block` then also parses as the logical `inline-size` utility
      and silently pins every inline-block element to this width. */
-  /* The display scale. Five steps, each with a job, so a heading can't be sized
-     by eye into a value between two others. Every one is viewport-relative: the
-     sheet is a fixed canvas, so type on it scales with the canvas.
-       cover    the opening wordmark, once
-       closing  its bookend, once
-       title    a section opening — the CV name, pensieri, shots
-       project  a project or divider heading
-       mark     the small typographic signature at a panel's foot */
-  /* Measures, for text. A block is held to one of these rather than to a number
-     picked at the moment of writing. Frames are not on this list: they take
-     their height from the content band and their width from their own ratio,
-     and the three width containers that used to size them are gone — holding a
-     row of frames to a width is what made each one resolve to a different
-     height in the first place. */
-  --container-reading: 46ch;
-  --container-lines: 1360px;
-
-  --text-cover: clamp(3.5rem, 11vw, 14rem);
-  --text-closing: clamp(3rem, 9vw, 12rem);
-  --text-title: clamp(2.75rem, 7vw, 9rem);
-  --text-project: clamp(2.5rem, 5.5vw, 7rem);
-  --text-mark: clamp(1rem, 1.4vw, 1.5rem);
-
   --spacing-hairline: 0.5rem;
   --spacing-rhythm: 1.5rem;
   --spacing-stack: 3rem;
@@ -97,12 +101,31 @@
      is for the one case where frames share the band with something else. */
   /* The space between one project and the next, inside the column. A project's
      own pages run straight on from each other; the join between two projects
-     has to read as a join, or eleven screens become one undifferentiated
+     has to read as a join, or thirteen screens become one undifferentiated
      scroll. */
   --gap-project: 30vh;
 
+  /* One line of label type. The label's leading is 1.5, so this is its line
+     box — the unit every stack of small type on the site is counted in. */
+  --label-line: calc(1.5 * var(--text-label));
+
+  /* A caption: one label line plus the hairline that attaches it to the frame
+     above. 1.75rem covers the widest the label's clamp ever gets. The band
+     holds the media and its caption exactly, so this is what the media gives
+     up, and it is why --band-media is not simply --band. */
+  --band-caption: 1.75rem;
+
+  /* The meta list's slot on a project's opening page. Fixed at four lines
+     rather than sized to its own text: a project whose discipline wraps to four
+     lines would otherwise push its title 17px below one whose discipline fits
+     in three, and the titles would stop sharing a line down the column. */
+  --meta-slot: calc(4 * var(--label-line));
+
   --band: 56vh;
-  --band-media: calc(var(--band) - 2.5rem);
+  --band-media: calc(var(--band) - var(--band-caption));
+  /* The share of the band left to frames that sit above an interaction chain
+     rather than owning the band alone. Measured rather than derived: the
+     chain's height depends on how its steps wrap, which CSS cannot ask. */
   --band-media-inset: calc(var(--band-media) * 0.58);
 }
 
@@ -166,9 +189,6 @@ body {
 
 /* Paper grain. Fixed above everything so the texture never scrolls with the
    panels, which is what makes it read as the sheet rather than as content. */
-:root {
-}
-
 .grain {
   position: fixed;
   inset: 0;
@@ -221,7 +241,7 @@ body {
 .panel-column [data-compact] {
   height: auto;
   min-height: 0;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: var(--meta-slot) auto auto;
 }
 
 /* A gap only exists where the sheet runs sideways. Stacked, it would be a
@@ -251,7 +271,7 @@ body {
 .frame-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem;
+  gap: var(--spacing-stack);
 }
 
 @media (min-width: 1024px) {
@@ -300,9 +320,7 @@ body {
 
 .label {
   font-family: var(--font-mono);
-  font-size: clamp(0.625rem, 0.72vw, 0.8125rem);
+  font-size: var(--text-label);
   line-height: 1.5;
   letter-spacing: 0.06em;
 }
-
-
