@@ -25,6 +25,9 @@ export type Frame = {
   orientation: "landscape" | "portrait";
   /** The frame's own width/height. Falls back to the orientation's default. */
   ratio?: number;
+  /** Takes the whole band rather than leaving the caption's allowance inside
+   *  it. Worth about 8%: the band is the ceiling, and it is shared. */
+  tall?: boolean;
 };
 
 export type ProjectPage = {
@@ -159,6 +162,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
           caption: "companion app, every screen",
           orientation: "landscape",
           ratio: 4096 / 2306,
+          tall: true,
         },
       ],
     ],

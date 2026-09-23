@@ -21,7 +21,7 @@ export function Comparison({
   gap?: string;
 }) {
   return (
-    <div className="flex w-full flex-col gap-far">
+    <div className="flex w-full flex-col gap-near">
       {heading ? (
         <div className="label max-w-reading">
           <h3>{heading}</h3>
@@ -53,7 +53,12 @@ export function Comparison({
         ))}
       </ul>
 
-      {gap ? <p className="label max-w-reading">{gap}</p> : null}
+      {/* Set against the right edge: it answers the three columns above
+          rather than opening a fourth, and the columns already begin at the
+          left. */}
+      {gap ? (
+        <p className="label ml-auto max-w-reading">{gap}</p>
+      ) : null}
     </div>
   );
 }

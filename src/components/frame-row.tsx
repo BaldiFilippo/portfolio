@@ -5,6 +5,7 @@ import type { CSSProperties, ReactNode } from "react";
    in step. It matters: a frame's width is its ratio times this height, and a
    `sizes` hint that claims otherwise makes the browser fetch and upload a
    texture several times larger than anything it will draw. */
+export const BAND = "56vh";
 export const BAND_MEDIA = "calc(56vh - 2.5rem)";
 export const BAND_MEDIA_INSET = "calc((56vh - 2.5rem) * 0.58)";
 

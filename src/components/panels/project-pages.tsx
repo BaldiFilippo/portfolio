@@ -6,6 +6,7 @@ import { ClipFrame } from "@/components/clip";
 import { Comparison } from "@/components/comparison";
 import { Flow } from "@/components/flow";
 import {
+  BAND,
   BAND_MEDIA,
   BAND_MEDIA_INSET,
   frameSizes,
@@ -69,14 +70,17 @@ function FrameRow({
   rowHeight?: string;
   className?: string;
 }) {
-  const height = rowHeight ?? BAND_MEDIA;
+  const height =
+    rowHeight ?? (frames.some((f) => f.tall) ? BAND : BAND_MEDIA);
 
   return (
     <Row ratios={frames.map(ratioOf)} rowHeight={height} className={className}>
       {frames.map((frame, i) => (
         <figure key={frame.src ?? i}>
           <div
-            className="relative w-full bg-accent/15"
+            /* The plate marks a slot with nothing in it yet. Left under a real
+               picture it shows through wherever that picture is transparent. */
+            className={`relative w-full ${frame.src ? "" : "bg-accent/15"}`}
             style={{ aspectRatio: ratioOf(frame) }}
           >
             {frame.src ? (
@@ -157,7 +161,7 @@ function FlowPanel({ project }: { project: ProjectPage }) {
 
   return (
     <Panel>
-      <div className="col-span-full row-start-2 flex flex-col justify-center gap-far">
+      <div className="col-span-full row-start-2 flex flex-col justify-center gap-near">
         {/* Held to a narrow measure: these two sit with the chain rather than
             carrying a page of their own, so they read as evidence for it. */}
         {project.flowFrames ? (
@@ -199,8 +203,15 @@ function VisualsPanel({
 export function ProjectPages() {
   return (
     <>
-      {PROJECT_PAGES.map((project) => (
+      {PROJECT_PAGES.map((project, i) => (
         <Fragment key={project.name}>
+          {i > 0 ? (
+            <div
+              aria-hidden
+              className="shrink-0"
+              style={{ height: "var(--gap-project)" }}
+            />
+          ) : null}
           <ConceptPanel project={project} />
           <ComparisonPanel project={project} />
           <ClipsPanel project={project} />

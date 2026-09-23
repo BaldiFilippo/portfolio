@@ -95,6 +95,12 @@
      Media is sized from this height, never from a width — a row of frames picks
      its height here and derives its width from the frames' own ratios. `inset`
      is for the one case where frames share the band with something else. */
+  /* The space between one project and the next, inside the column. A project's
+     own pages run straight on from each other; the join between two projects
+     has to read as a join, or eleven screens become one undifferentiated
+     scroll. */
+  --gap-project: 30vh;
+
   --band: 56vh;
   --band-media: calc(var(--band) - 2.5rem);
   --band-media-inset: calc(var(--band-media) * 0.58);
