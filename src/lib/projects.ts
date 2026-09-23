@@ -74,7 +74,7 @@ export type ProjectPage = {
  */
 export const PROJECT_PAGES: ProjectPage[] = [
   {
-    name: "sat.",
+    name: "satRedesign.",
     // The others are university briefs; this one was paid for. The label is
     // the only place on the page where that distinction can be made.
     label: "commissioned work",
@@ -93,7 +93,7 @@ export const PROJECT_PAGES: ProjectPage[] = [
     visualPages: [
       [
         {
-          src: "/projects/sat/sat-screens.jpg",
+          src: "/projects/sat-redesign/sat-redesign-screens.jpg",
           alt: "The redesigned mobile web app, laid out across a grid of phones: registration, joining, family management, and the digital card with its year stamps",
           caption: "the mobile web app",
           orientation: "landscape",

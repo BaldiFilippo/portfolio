@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { ContactList } from "@/components/contact-list";
 import { Panel } from "@/components/panel";
 import {
@@ -10,7 +8,6 @@ import {
   LANGUAGES,
   PERSONAL_SKILLS,
   PROFESSIONAL_SKILLS,
-  PORTRAITS,
   PROJECTS,
   type Entry,
 } from "@/lib/cv";
@@ -64,26 +61,9 @@ export function CvPanel() {
             </h2>
           </div>
 
-          <div className="mt-rhythm grid grid-cols-2 gap-[var(--grid-gutter)] lg:h-[35vh] lg:grid-rows-2">
-            {PORTRAITS.map((portrait) => (
-              <div
-                key={portrait.src}
-                className="relative aspect-[4/3] overflow-hidden lg:aspect-auto lg:h-full"
-              >
-                <Image
-                  src={portrait.src}
-                  alt={portrait.alt}
-                  fill
-                  sizes="(min-width: 1024px) 16vw, 45vw"
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* No max-width: the measure is the portrait grid above it, so the two
-              share an edge. */}
-          <p className="label mt-rhythm">{BIO}</p>
+          {/* No max-width: the measure is the column it sits in, which is the
+              same one the name above it runs to. */}
+          <p className="label mt-stack">{BIO}</p>
         </div>
 
         {/* Middle: education over experience */}
