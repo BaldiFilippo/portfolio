@@ -74,7 +74,7 @@ export type ProjectPage = {
  */
 export const PROJECT_PAGES: ProjectPage[] = [
   {
-    name: "satRedesign.",
+    name: "webapp redesign: SAT",
     // The others are university briefs; this one was paid for. The label is
     // the only place on the page where that distinction can be made.
     label: "commissioned work",
