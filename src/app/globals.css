@@ -1,1 +1,285 @@
 @import "tailwindcss";
+
+/* One unit of 4px: every spacing utility is a multiple of it. p-7 is one line of body text. */
+@theme {
+  --font-*: initial;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+
+  --text-*: initial;
+  --text-label: 0.875rem;
+  --text-label--line-height: calc(20 / 14);
+  --text-body: 1rem;
+  --text-body--line-height: calc(28 / 16);
+
+  --container-*: initial;
+  --container-grid: 40rem;
+
+  --breakpoint-*: initial;
+  --breakpoint-columns: 43em;
+
+  --radius-*: initial;
+  --radius-s: 0.25rem;
+  --radius-m: 0.75rem;
+
+  --ease-*: initial;
+  --ease-page: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@theme inline {
+  --color-*: initial;
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-fill: var(--fill);
+}
+
+:root {
+  color-scheme: light dark;
+  --paper: #ffffff;
+  --ink: #3a3a3a;
+  --ink-soft: #3a3a3a;
+  --ink-faint: #3a3a3a;
+  --underline: #3a3a3a;
+  --line: #e7e7e7;
+  --fill: #f3f3f3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #000000;
+    --ink: #e5e5e5;
+    --ink-soft: #a0a0a0;
+    --ink-faint: #707070;
+    --underline: #505050;
+    --line: #2e2e2e;
+    --fill: #1c1c1c;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --ink: #111111;
+    --ink-soft: #111111;
+    --ink-faint: #111111;
+    --underline: #111111;
+    --line: #6b6b6b;
+  }
+}
+
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root {
+    --ink: #ffffff;
+    --ink-soft: #ffffff;
+    --ink-faint: #ffffff;
+    --underline: #ffffff;
+    --line: #a0a0a0;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-body text-ink antialiased text-pretty;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  a {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Replaces the removed tap highlight on touch screens. */
+  @media (hover: none) {
+    a:active {
+      opacity: 0.6;
+    }
+  }
+
+  ::selection {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+    border-radius: var(--radius-s);
+  }
+}
+
+@layer components {
+  .gutter {
+    padding-left: max(calc(var(--spacing) * 6), env(safe-area-inset-left, 0px));
+    padding-right: max(calc(var(--spacing) * 6), env(safe-area-inset-right, 0px));
+  }
+
+  /*
+    Project pages: text stays in the column, media can leave it.
+    Tracks: gutter, wide, text, wide, gutter. Only video uses the wide track.
+  */
+  .story {
+    --gutter: max(1.5rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+    display: grid;
+    grid-template-columns:
+      [full-start] minmax(var(--gutter), 1fr)
+      [wide-start] minmax(0, 5rem)
+      [text-start] min(var(--container-grid), 100% - 2 * var(--gutter))
+      [text-end] minmax(0, 5rem)
+      [wide-end] minmax(var(--gutter), 1fr)
+      [full-end];
+  }
+
+  .story > *,
+  .story-section > * {
+    grid-column: text;
+  }
+
+  .story-section {
+    display: grid;
+    grid-column: full;
+    grid-template-columns: subgrid;
+  }
+
+  .story > .media-wide,
+  .story-section > .media-wide {
+    grid-column: wide;
+  }
+
+  /* Text in the column with an iPhone the size of the phone row, past the right edge. */
+  .story-section > .media-side {
+    display: grid;
+    gap: calc(var(--spacing) * 8);
+    grid-column: text-start / wide-end;
+  }
+
+  @media (width >= 43em) {
+    .story-section > .media-side {
+      grid-template-columns: minmax(0, 1fr) 15.33rem;
+    }
+  }
+
+  /* Images sit on the three columns of the index, so every size has a reason. */
+  .media-row {
+    display: grid;
+    align-items: start;
+    gap: calc(var(--spacing) * 8);
+  }
+
+  @media (width >= 43em) {
+    .media-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* Videos are made on black: inverted in the light theme, their background becomes the page. */
+  .video-themed {
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .video-themed {
+      filter: none;
+    }
+  }
+
+  /* Normal wrapping, so the text fills each column and the gaps look even. */
+  .index {
+    text-wrap: wrap;
+  }
+
+  /* Hovering or focusing a link of the index or of Connect quiets the rest of the page. Every
+     piece fades with the same opacity and timing, and none sits inside another fading piece. */
+  :is(#content > div > :not(.index, :has(.connect)), :has(> .connect) > h2, .index h2, .index a, .connect > *) {
+    transition: opacity 140ms ease;
+  }
+
+  @media (hover: hover) {
+    #content:has(:is(.index, .connect) a:hover)
+      :is(#content > div > :not(.index, :has(.connect)), :has(> .connect) > h2, .index h2, .index a:not(:hover), .connect > :not(:hover)) {
+      opacity: 0.3;
+    }
+  }
+
+  #content:has(:is(.index, .connect) a:focus-visible)
+    :is(#content > div > :not(.index, :has(.connect)), :has(> .connect) > h2, .index h2, .index a:not(:focus-visible), .connect > :not(:focus-visible)) {
+    opacity: 0.3;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :is(#content > div > *, #content h2, .index a, .connect > *) {
+      transition: none;
+    }
+  }
+
+  .link {
+    text-decoration-line: underline;
+    text-decoration-color: var(--underline);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2.5px;
+  }
+}
+
+/* Changing page: everything fades except the title, which moves to the top, then the new page arrives. */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-group(.title) {
+  z-index: 1;
+  animation-delay: 100ms;
+  animation-duration: 450ms;
+  animation-timing-function: var(--ease-page);
+}
+
+::view-transition-old(.title),
+::view-transition-new(.title) {
+  animation-delay: 100ms;
+  animation-duration: 450ms;
+}
+
+::view-transition-old(.page-out) {
+  animation: 120ms ease both page-out;
+}
+
+::view-transition-new(.page-in) {
+  animation: 300ms var(--ease-page) 480ms both page-in;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* Sip's white light, breathing while the alarm rings. */
+@keyframes led-ring {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
