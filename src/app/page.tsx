@@ -65,7 +65,7 @@ const experience = [
     {
       name: "University of Trento",
       role: "B.Sc. Interfaces and Communication Technologies",
-      period: "2024–2027",
+      period: "2024–now",
     },
     { name: "Istituto Tecnico Benedetto Castelli", role: "Diploma in computer science", period: "2023" },
   ],
