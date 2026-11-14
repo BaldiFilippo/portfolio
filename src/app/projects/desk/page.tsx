@@ -18,7 +18,7 @@ export default function DeskPage() {
         <ProjectHeader
           name="Desk"
           slug="desk"
-          status="Online soon"
+          site="https://filsdesk.dev"
           credits="Design, 3D and development, 2026"
         >
           <p>
@@ -145,7 +145,11 @@ export default function DeskPage() {
 
         <Section title="Where it stands">
           <p>
-            <ProjectName slug="desk" name="Desk" /> is close to finished and will go online soon.
+            <ProjectName slug="desk" name="Desk" /> is online at{" "}
+            <a href="https://filsdesk.dev" className="link">
+              filsdesk.dev
+            </a>
+            .
           </p>
         </Section>
 
